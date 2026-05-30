@@ -1,0 +1,623 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E2fullExtensions — вики по Wiremod</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script>
+    (function () {
+      var k = "e2wiki-theme";
+      var t = localStorage.getItem(k);
+      document.documentElement.setAttribute("data-theme", t || "dark");
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">
+      <span class="logo-brand">E2fullExtensions</span>
+      <span class="logo-tag">Wiki</span>
+    </div>
+    <div class="subtitle">Справочник E2-модулей сервера</div>
+    <nav class="nav">
+      <div class="nav-group">
+        <div class="nav-label">Введение</div>
+        <a href="#intro">Начало</a>
+        <a href="#overview">Обзор аддонов</a>
+        <a href="#check-modules">Проверка модулей</a>
+        <a href="#howto">Как пользоваться</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Справочник API</div>
+        <a href="#squad">Отряды</a>
+        <a href="#eventsystem">EVENT system</a>
+        <a href="#pointpay">PointShop</a>
+        <a href="#moneypay">Sandbox Money</a>
+        <a href="#extracore">Extra+ E2 CORE</a>
+        <a href="#E2fullExtensions">Модули</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Примеры кода</div>
+        <a href="#ex-squad">Отряды</a>
+        <a href="#ex-event">Ивенты</a>
+        <a href="#ex-pay">Оплата</a>
+        <a href="#ex-extracore">Extra+ CORE</a>
+        <a href="#ex-combo">Комбинации</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="lang-wrap notranslate" id="langWrap">
+        <button type="button" class="lang-trigger" id="langTrigger" aria-haspopup="listbox" aria-expanded="false">
+          <img class="lang-flag" id="langTriggerFlag" src="" alt="" width="18" height="18" draggable="false">
+          <span class="lang-trigger-text" id="langTriggerText"></span>
+          <svg class="lang-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <ul class="lang-menu" id="langMenu" role="listbox"></ul>
+      </div>
+      <button type="button" class="sidebar-icon-btn" id="themeToggle" aria-label="Toggle theme" title="Theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <article class="article prose clearfix">
+
+      <header class="hero" id="intro">
+        <h1>
+          <span class="hero-brand">E2fullExtensions</span>
+          <span class="hero-tag">Wiki</span>
+        </h1>
+        <p class="intro">Официальная вики для аддона <strong>E2fullExtensions</strong> — все E2-расширения сервера в одном месте. Модули подключаются автоматически, если установлены зависимости: <strong>Extra+ E2 CORE</strong>, <strong>EVENT system</strong>, <strong>PointShop</strong>, <strong>Sandbox Money [FULL REWORKED]</strong> и др. Команда <code>e2fullextensions_modules</code> — панель статуса в игре.</p>
+      </header>
+
+      <nav class="toc">
+        <div class="toc-title">Содержание</div>
+        <ol>
+          <li><a href="#overview">Обзор аддонов</a></li>
+          <li><a href="#check-modules">Проверка модулей</a></li>
+          <li><a href="#howto">Как пользоваться вики</a></li>
+          <li><a href="#squad">API: отряды</a>
+            <ol>
+              <li><a href="#squad-ext">Расширенные функции</a></li>
+            </ol>
+          </li>
+          <li><a href="#eventsystem">API: EVENT system</a></li>
+          <li><a href="#pointpay">API: PointShop</a></li>
+          <li><a href="#moneypay">API: Sandbox Money</a></li>
+          <li><a href="#extracore">API: Extra+ E2 CORE</a></li>
+          <li><a href="#E2fullExtensions">E2fullExtensions: модули</a></li>
+          <li><a href="#ex-squad">Примеры кода</a></li>
+        </ol>
+      </nav>
+
+      <!-- OVERVIEW -->
+      <section class="section" id="overview">
+        <h2>Обзор аддонов</h2>
+
+        <aside class="infobox">
+          <div class="infobox-title">Нужно на сервере</div>
+          <table>
+            <tr><th>Обязательно</th><td>Wiremod, E2fullExtensions</td></tr>
+            <tr><th>Extra+ CORE</th><td>Wirelink (<code>wirelinkcon</code>) в E2fullExtensions</td></tr>
+            <tr><th>Отряды</th><td>Simple Squad Menu</td></tr>
+            <tr><th>Ивенты</th><td>EVENT system for sandbox</td></tr>
+            <tr><th>Поинты</th><td>PointShop</td></tr>
+            <tr><th>Деньги</th><td>Sandbox Money [FULL REWORKED] или DarkRP</td></tr>
+          </table>
+        </aside>
+
+        <p>Каждый модуль E2fullExtensions включается автоматически. Строка <code>@extensions</code> не обязательна. Статус модулей в игре: <code>e2fullextensions_modules</code>.</p>
+
+        <div class="overview-grid">
+          <div class="overview-card">
+            <span class="tag tag-squad">Squad</span>
+            <h4>Simple Squad Menu</h4>
+            <p>Базовые функции отрядов. Расширения (лидер, isInSquad, события) — модуль E2fullExtensions.</p>
+          </div>
+          <div class="overview-card">
+            <span class="tag tag-event">Event</span>
+            <h4>EVENT system</h4>
+            <p>Ивенты для sandbox: набор «+», фазы, участники, ULX-команды. E2 — модуль E2fullExtensions.</p>
+          </div>
+          <div class="overview-card">
+            <span class="tag tag-pay">Pay</span>
+            <h4>PointShop</h4>
+            <p>Оплата поинтами: запрос, баланс, перевод, дроп. E2-модуль <code>pointpay</code> в E2fullExtensions.</p>
+          </div>
+          <div class="overview-card">
+            <span class="tag tag-money">Money</span>
+            <h4 class="overview-title-duo">
+              <span class="overview-title-line">DarkRP<span class="overview-title-slash">/</span></span>
+              <span class="overview-title-line">Simple money</span>
+            </h4>
+            <p>Деньги на sandbox-серверах и в DarkRP. E2-модуль <code>moneypay</code> — те же функции, что PointShop, но для $.</p>
+          </div>
+          <div class="overview-card">
+            <span class="tag tag-wire">CORE</span>
+            <h4>Extra+ E2 CORE</h4>
+            <p>Wirelink: use, balloon, shake, physPulse. Активен с Wiremod.</p>
+          </div>
+        </div>
+
+        <h3>Модули E2fullExtensions</h3>
+        <div class="module-list">
+          <a class="module-item" href="#extracore">
+            <strong>Wirelink</strong>
+            <span><code>wirelinkcon</code> · use, balloon, shake</span>
+          </a>
+          <a class="module-item" href="#squad">
+            <strong>Squad</strong>
+            <span><code>squad_e2plus</code> · отряды, лидер, isInSquad</span>
+          </a>
+          <a class="module-item" href="#eventsystem">
+            <strong>EVENT system</strong>
+            <span><code>eventsystem_e2</code> · фазы, участники, «+»</span>
+          </a>
+          <a class="module-item" href="#pointpay">
+            <strong>PointShop</strong>
+            <span><code>pointpay</code> · запрос, баланс, дроп</span>
+          </a>
+          <a class="module-item" href="#moneypay">
+            <strong>Money</strong>
+            <span><code>moneypay</code> · Simple money / DarkRP</span>
+          </a>
+        </div>
+
+        <div class="cmd-box" id="check-modules">
+          <div class="cmd-box-title">Проверка модулей на сервере</div>
+          <p class="cmd-box-lead">В игре на сервере с E2fullExtensions — откроется панель со статусом каждого модуля.</p>
+          <div class="cmd-box-row notranslate">
+            <code class="cmd-box-code">e2fullextensions_modules</code>
+            <button type="button" class="copy-btn cmd-copy" data-copy="e2fullextensions_modules">Copy</button>
+          </div>
+          <p class="cmd-box-hint">Консоль (<kbd>~</kbd>) или чат. Статусы: <strong>Активен</strong> · <strong>Зависимости есть, E2 не загружен</strong> · <strong>Не найдено</strong>.</p>
+        </div>
+      </section>
+
+      <!-- HOW TO -->
+      <section class="section" id="howto">
+        <h2>Как пользоваться</h2>
+        <ol>
+          <li>На сервере введи <code>e2fullextensions_modules</code> — см. <a href="#check-modules">проверку модулей</a>.</li>
+          <li>Убедись, что нужные аддоны установлены в <code>garrysmod/addons/</code>.</li>
+          <li>Найди функцию в разделе <strong>Справочник API</strong> или готовый пример ниже.</li>
+          <li>Нажми <strong>Copy</strong> под блоком кода и вставь в E2-редактор.</li>
+          <li>Подключи Wire-входы и выходы к своей схеме.</li>
+          <li>Если функция «не найдена» — перезагрузи Lua (<code>lua_refresh</code> в консоли) или перезапусти карту.</li>
+        </ol>
+
+        <div class="note note-tip">
+          <strong>ID отряда:</strong> у каждого отряда есть числовой идентификатор. Игрок получает его через <code>entity:getSquadID()</code>; если игрок не в отряде — возвращается <code>−1</code>. Для проверок надёжнее использовать ID, чем имя: имя можно найти через <code>getSquadIDByName</code> или <code>findSquadIDByPart</code>, либо выбрать отряд по позиции в <code>getAllSquadIDs()</code>.
+        </div>
+      </section>
+
+      <!-- SQUAD API -->
+      <section class="section" id="squad">
+        <span class="tag tag-squad">Simple Squad Menu</span>
+        <h2>Отряды — базовые функции</h2>
+        <p class="lead">Аддон Simple Squad Menu. Базовые функции для чтения данных об отрядах и игроках.</p>
+        <table class="wikitable">
+          <thead><tr><th>Функция</th><th>Возвращает</th><th>Описание</th></tr></thead>
+          <tbody>
+            <tr><td><code>entity:isSquadMember()</code></td><td>0 / 1</td><td>Игрок состоит в любом отряде</td></tr>
+            <tr><td><code>entity:getSquadID()</code></td><td>число</td><td>ID отряда; −1 если не в отряде</td></tr>
+            <tr><td><code>doesSquadExist(n)</code></td><td>0 / 1</td><td>Отряд с таким ID существует</td></tr>
+            <tr><td><code>getSquadName(n)</code></td><td>строка</td><td>Название отряда</td></tr>
+            <tr><td><code>getSquadColor(n)</code></td><td>vector</td><td>Цвет RGB отряда</td></tr>
+            <tr><td><code>getSquadMemberCount(n)</code></td><td>число</td><td>Сколько игроков онлайн в отряде</td></tr>
+            <tr><td><code>getSquadMembers(n)</code></td><td>array</td><td>Массив игроков отряда</td></tr>
+            <tr><td><code>getAllSquadIDs()</code></td><td>array</td><td>Все ID отрядов на сервере</td></tr>
+            <tr><td><code>getSquadIDByName(s)</code></td><td>число</td><td>ID по точному имени; −1 если нет</td></tr>
+            <tr><td><code>findSquadIDByPart(s)</code></td><td>число</td><td>ID по части имени; −1 если нет</td></tr>
+          </tbody>
+        </table>
+
+        <h3 id="squad-ext">Расширенные функции</h3>
+        <p class="lead">Модуль E2fullExtensions (<code>squad_e2plus</code>). Требует Simple Squad Menu.</p>
+        <table class="wikitable">
+          <thead><tr><th>Функция</th><th>Возвращает</th><th>Описание</th></tr></thead>
+          <tbody>
+            <tr><td><code>entity:isInSquad(n)</code></td><td>0 / 1</td><td>Игрок состоит в отряде с ID <code>n</code></td></tr>
+            <tr><td><code>entity:sameSquad(e)</code></td><td>0 / 1</td><td>Два игрока в одном отряде</td></tr>
+            <tr><td><code>entity:isSquadLeader()</code></td><td>0 / 1</td><td>Игрок — лидер своего отряда</td></tr>
+            <tr><td><code>getSquadLeader(n)</code></td><td>entity</td><td>Entity лидера отряда</td></tr>
+            <tr><td><code>getSquadLeaderName(n)</code></td><td>строка</td><td>Ник лидера</td></tr>
+            <tr><td><code>runOnSquadEvent(1)</code></td><td>—</td><td>Включить событие входа/выхода</td></tr>
+            <tr><td><code>squadEventClk()</code></td><td>0 / 1</td><td>Сейчас срабатывает событие отряда</td></tr>
+            <tr><td><code>squadEventPlayer()</code></td><td>entity</td><td>Кто вошёл или вышел</td></tr>
+            <tr><td><code>squadEventType()</code></td><td>1 / 2</td><td>1 = вход, 2 = выход</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- EVENT -->
+      <section class="section" id="eventsystem">
+        <span class="tag tag-event">EVENT system</span>
+        <h2>EVENT system for sandbox</h2>
+        <p>Аддон <strong>EVENT system</strong> + E2-модуль <code>eventsystem_e2</code> в E2fullExtensions. Фазы: <strong>0</strong> — нет ивента, <strong>1</strong> — набор («+»), <strong>2</strong> — ивент идёт.</p>
+        <table class="wikitable">
+          <thead><tr><th>Функция</th><th>Описание</th></tr></thead>
+          <tbody>
+            <tr><td><code>getEventState()</code></td><td>0 / 1 / 2 — текущая фаза</td></tr>
+            <tr><td><code>getEventName()</code><span class="fn-sep">·</span><code>getEventPrize()</code></td><td>Название и приз ивента</td></tr>
+            <tr><td><code>getEventParticipantCount()</code></td><td>Число участников</td></tr>
+            <tr><td><code>getEventParticipants()</code></td><td>Array игроков-участников</td></tr>
+            <tr><td><code>entity:isEventParticipant()</code></td><td>1 = игрок в списке участников</td></tr>
+            <tr><td><code>getEventOwner()</code><span class="fn-sep">·</span><code>getEventOwnerName()</code></td><td>Entity и ник создателя</td></tr>
+            <tr><td><code>isEventRunning()</code></td><td>1 = фаза 2 (ивент идёт)</td></tr>
+            <tr><td><code>isEventRecruiting()</code></td><td>1 = фаза 1 (набор)</td></tr>
+            <tr><td><code>getEventLocation()</code></td><td>Vector — точка телепорта участников</td></tr>
+            <tr><td><code>runOnEventStateChanged(1)</code></td><td>Чип выполняется при смене фазы</td></tr>
+            <tr><td><code>runOnEventParticipantChanged(1)</code></td><td>Чип выполняется при +/- участнике</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- PAY -->
+      <section class="section" id="pointpay">
+        <span class="tag tag-pay">PointShop</span>
+        <h2>PointShop — оплата поинтами</h2>
+        <p>Модуль E2fullExtensions <code>pointpay</code>. Требует <strong>PointShop</strong> (<code>PS_GetPoints</code>). Окно «Принять / Отказать». Дроп — <code>pointshop_money_drop</code>.</p>
+        <table class="wikitable">
+          <thead><tr><th>Функция</th><th>Описание</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="fn-sigs">
+                <code>entity:pointPayRequest(n)</code>
+                <span class="fn-or">или</span>
+                <code>entity:pointPayRequest(n, s)</code>
+              </td>
+              <td>Запрос N поинтов. <code>s</code> — текст причины (необязательно)</td>
+            </tr>
+            <tr><td><code>entity:getPointBalance()</code></td><td>Баланс поинтов игрока</td></tr>
+            <tr><td><code>entity:pointPayGive(n)</code></td><td>Перевести N поинтов без окна</td></tr>
+            <tr><td><code>pointPayDrop(n, v)</code></td><td>Спавн дропа с поинтами</td></tr>
+            <tr><td><code>runOnPointPaySuccess(1)</code></td><td>Включить ожидание ответа</td></tr>
+            <tr><td><code>pointPaySuccess()</code></td><td>1 = оплатил, −1 = отказ, 0 = тишина</td></tr>
+            <tr><td><code>pointPayPayer()</code><span class="fn-sep">·</span><code>pointPayAmount()</code></td><td>Кто платил и сколько</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- MONEY -->
+      <section class="section" id="moneypay">
+        <span class="tag tag-pay">Sandbox Money</span>
+        <h2>Sandbox Money [FULL REWORKED]</h2>
+        <p>Модуль E2fullExtensions <code>moneypay</code>. Работает с <strong>Sandbox Money [FULL REWORKED]</strong> или <strong>DarkRP</strong>. API зеркалит PointShop — те же сценарии, но для денег ($).</p>
+
+        <div class="note note-tip">
+          <strong>Как определяется бэкенд:</strong> <code>getMoney()</code> + <code>addMoney()</code> — Sandbox Money; gamemode DarkRP или <code>getDarkRPVar("money")</code> — DarkRP. Дроп — <code>spawned_money</code> / <code>DarkRP.createMoneyBag</code>.
+        </div>
+
+        <table class="wikitable">
+          <thead><tr><th>Функция</th><th>Аналог PointShop</th><th>Описание</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="fn-sigs">
+                <code>entity:moneyPayRequest(n)</code>
+                <span class="fn-or">или</span>
+                <code>entity:moneyPayRequest(n, s)</code>
+              </td>
+              <td>pointPayRequest</td>
+              <td>Запрос N денег. <code>s</code> — текст (необязательно)</td>
+            </tr>
+            <tr><td><code>entity:getMoneyBalance()</code></td><td>getPointBalance</td><td>Баланс игрока</td></tr>
+            <tr><td><code>entity:moneyPayGive(n)</code></td><td>pointPayGive</td><td>Перевод без окна</td></tr>
+            <tr><td><code>moneyPayDrop(n, v)</code></td><td>pointPayDrop</td><td>Спавн money bag</td></tr>
+            <tr><td><code>runOnMoneyPaySuccess(1)</code></td><td>runOnPointPaySuccess</td><td>Ожидание ответа</td></tr>
+            <tr><td><code>moneyPaySuccess()</code></td><td>pointPaySuccess</td><td>1 / −1 / 0</td></tr>
+            <tr><td><code>moneyPayPayer()</code><span class="fn-sep">·</span><code>moneyPayAmount()</code></td><td>pointPayPayer · pointPayAmount</td><td>Кто платил и сколько</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- E2fullExtensions -->
+      <section class="section" id="E2fullExtensions">
+        <span class="tag tag-wire">E2fullExtensions</span>
+        <h2>Модули и проверка зависимостей</h2>
+        <p>Все E2-расширения в одном аддоне. В консоли или чате: <code>e2fullextensions_modules</code> — откроется панель со статусом каждого модуля.</p>
+
+        <table class="wikitable">
+          <thead><tr><th>Модуль E2fullExtensions</th><th>Extension</th><th>Workshop-аддон / проверка</th></tr></thead>
+          <tbody>
+            <tr><td>Extra+ E2 CORE — Wirelink</td><td><code>wirelinkcon</code></td><td>Wiremod (E2Lib)</td></tr>
+            <tr><td>Squad / EVENT</td><td><code>squad_e2plus</code>, <code>eventsystem_e2</code></td><td>Simple Squad Menu, EVENT system</td></tr>
+            <tr><td>PointShop</td><td><code>pointpay</code></td><td>PS_GetPoints, PS_HasPoints</td></tr>
+            <tr><td>Sandbox Money</td><td><code>moneypay</code></td><td>getMoney + addMoney или DarkRP</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Статусы в панели</h3>
+        <ul>
+          <li><strong>Активен</strong> — модуль загружен, функции доступны в E2</li>
+          <li><strong>Зависимости есть</strong> — аддон на месте, но E2 ещё не перезагружен</li>
+          <li><strong>Не найдено</strong> — нужный аддон/API отсутствует</li>
+        </ul>
+      </section>
+
+      <!-- EXTRA+ CORE -->
+      <section class="section" id="extracore">
+        <span class="tag tag-wire">Extra+ E2 CORE</span>
+        <h2>Extra+ E2 CORE</h2>
+        <p>Модуль E2fullExtensions <strong>Wirelink</strong>. Extension: <code>wirelinkcon</code>.</p>
+
+        <h3>Wirelink</h3>
+        <table class="wikitable">
+          <thead><tr><th>Функция</th><th>Описание</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="fn-sigs">
+                <code>use(player, entity)</code>
+                <span class="fn-or">или</span>
+                <code>use(player, wirelink)</code>
+              </td>
+              <td>Нажать E: напрямую по entity или через wirelink</td>
+            </tr>
+            <tr><td><code>balloon(...)</code></td><td>Заспавнить шар (modelKey: heart, star, gman…)</td></tr>
+            <tr><td><code>balloonAndRope(...)</code></td><td>Шар + верёвка к пропу</td></tr>
+            <tr><td><code>shake(pos, amp, freq, dur, radius)</code></td><td>Тряска экрана</td></tr>
+            <tr><td><code>physPulse(player, pos, radius, force)</code></td><td>Толкнуть свои пропы в радиусе</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- EXAMPLES -->
+      <section class="section" id="ex-squad">
+        <h2>Примеры — отряды</h2>
+
+        <div class="example-block">
+          <h3>Проверка: игрок в нужном отряде</h3>
+          <p>Отряд задаётся по индексу в списке <code>getAllSquadIDs()</code> или по имени через Wire-вход.</p>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Squad Check
+@inputs SquadName:string SquadIndex Check
+@outputs Allowed SquadID
+@persist TargetSquadID
+@trigger Check
+
+TargetSquadID = -1
+if(SquadIndex >= 1) {
+    local N = 0
+    foreach(_, ID:number=getAllSquadIDs()) {
+        N += 1
+        if(N == SquadIndex) { TargetSquadID = ID }
+    }
+}
+if(TargetSquadID == -1) {
+    TargetSquadID = getSquadIDByName(SquadName)
+    if(TargetSquadID == -1) { TargetSquadID = findSquadIDByPart(SquadName) }
+}
+SquadID = TargetSquadID
+if(Check) {
+    Allowed = (doesSquadExist(TargetSquadID) & owner():isInSquad(TargetSquadID)) ? 1 : 0
+}</pre>
+          </div>
+        </div>
+
+        <div class="example-block">
+          <h3>Список всех отрядов на экран</h3>
+          <p>Выводит название и число участников каждого отряда.</p>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Squad List
+@outputs Screen:string
+@trigger
+
+local T = ""
+foreach(_, ID:number=getAllSquadIDs()) {
+    T = T + getSquadName(ID) + " (" + getSquadMemberCount(ID):toString() + ") | "
+}
+Screen = T</pre>
+          </div>
+        </div>
+
+        <div class="example-block">
+          <h3>Реакция на вход и выход из отряда</h3>
+          <p>Чип выполняется, когда кто-то вступает в отряд или покидает его.</p>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Squad Events
+@outputs EventText:string
+@trigger
+
+if(first()) { runOnSquadEvent(1) }
+if(squadEventClk()) {
+    local P = squadEventPlayer()
+    local Act = squadEventType() == 1 ? "joined" : "left"
+    EventText = P:name() + " " + Act + " squad " + P:getSquadID():toString()
+}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="ex-event">
+        <h2>Примеры — ивенты</h2>
+
+        <div class="example-block">
+          <h3>Проверка участника активного ивента</h3>
+          <p>Wire-выход <code>Allowed</code> = 1, если ивент идёт и игрок в списке участников.</p>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Event Check
+@inputs Check
+@outputs Allowed
+@trigger Check
+
+if(Check) {
+    Allowed = (isEventRunning() & owner():isEventParticipant()) ? 1 : 0
+}</pre>
+          </div>
+        </div>
+
+        <div class="example-block">
+          <h3>Информация об ивенте на экран</h3>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Event HUD
+@outputs Screen:string
+@trigger
+
+Screen = getEventName() + " | " + getEventPrize()
+Screen = Screen + " | Parts:" + getEventParticipantCount():toString()
+Screen = Screen + " | Owner:" + getEventOwnerName()
+Screen = Screen + " | State:" + getEventState():toString()</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="ex-pay">
+        <h2>Примеры — оплата</h2>
+
+        <div class="example-block">
+          <h3>Запрос оплаты по кнопке</h3>
+          <p>При нажатии <code>Buy</code> отправляет игроку окно оплаты; при успехе включает выход <code>Paid</code>.</p>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Shop E2
+@inputs Buy
+@outputs Sold
+@persist Price
+@trigger Buy
+
+if(first()) { Price = 75; runOnPointPaySuccess(1) }
+if(Buy) {
+    local C = owner()
+    if(C:getPointBalance() >= Price) { C:pointPayRequest(Price, "Purchase") }
+}
+if(pointPaySuccess() == 1) {
+    Sold = 1
+    timer("reset", 1000)
+    runOnPointPaySuccess(0)
+    runOnPointPaySuccess(1)
+}
+if(clk("reset")) { Sold = 0 }</pre>
+          </div>
+        </div>
+
+        <div class="example-block">
+          <h3>Запрос оплаты деньгами (Sandbox Money / DarkRP)</h3>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Money Shop
+@inputs Buy
+@outputs Sold
+@persist Price
+@trigger Buy
+
+if(first()) { Price = 500; runOnMoneyPaySuccess(1) }
+if(Buy) {
+    local C = owner()
+    if(C:getMoneyBalance() >= Price) { C:moneyPayRequest(Price, "Purchase") }
+}
+if(moneyPaySuccess() == 1) {
+    Sold = 1
+    timer("reset", 1000)
+    runOnMoneyPaySuccess(0)
+    runOnMoneyPaySuccess(1)
+}
+if(clk("reset")) { Sold = 0 }</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="ex-extracore">
+        <h2>Примеры — Extra+ E2 CORE</h2>
+
+        <div class="example-block">
+          <h3>Дистанционное нажатие E</h3>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Remote Use
+@inputs Fire
+@outputs DidUse
+@trigger Fire
+
+if(Fire) { DidUse = use(owner(), owner():aimEntity()) }</pre>
+          </div>
+        </div>
+
+        <div class="example-block">
+          <h3>Шар с верёвкой</h3>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Balloon Rope
+@inputs Spawn
+@outputs Done
+@trigger Spawn
+
+if(Spawn) {
+    local R = balloonAndRope(owner(), entity():pos() + vec(0,0,80), 500, vec(255,80,80), "heart", entity(), 120, "cable/rope")
+    Done = R:count()
+}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="ex-combo">
+        <h2>Комбинации</h2>
+
+        <div class="example-block">
+          <h3>Условие: отряд или ивент, иначе оплата</h3>
+          <p>Если игрок в нужном отряде или участник ивента — выход <code>Access</code>. Иначе запрашивается оплата поинтами.</p>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Access Logic
+@inputs Request SquadIndex
+@outputs Access Paid
+@persist SquadID Price
+@trigger Request
+
+if(first()) { Price = 100; runOnPointPaySuccess(1); SquadID = -1 }
+if(SquadIndex >= 1) {
+    local N = 0
+    foreach(_, ID:number=getAllSquadIDs()) {
+        N += 1
+        if(N == SquadIndex) { SquadID = ID }
+    }
+}
+if(Request) {
+    local OkSquad = doesSquadExist(SquadID) & owner():isInSquad(SquadID)
+    local OkEvent = isEventRunning() & owner():isEventParticipant()
+    if(OkSquad | OkEvent) { Access = 1 }
+    else { owner():pointPayRequest(Price, "Access fee") }
+}
+if(pointPaySuccess() == 1) {
+    Paid = 1
+    Access = 1
+    runOnPointPaySuccess(0)
+    runOnPointPaySuccess(1)
+}</pre>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        E2fullExtensions Wiki · Garry's Mod · Wiremod · Обновляй страницу после правок аддонов
+      </footer>
+
+    </article>
+  </main>
+</div>
+<div id="google_translate_element" class="gt-hidden"></div>
+<script>
+window.googleTranslateElementInit = function () {
+  new google.translate.TranslateElement({
+    pageLanguage: "ru",
+    includedLanguages: "ru,en,uk,de,fr,es,pl,tr,zh-CN,ja",
+    autoDisplay: false
+  }, "google_translate_element");
+};
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
