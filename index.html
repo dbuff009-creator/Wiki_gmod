@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E2fullExtensions — вики по Wiremod</title>
+  <title>E2FE — вики E2fullExtensions · Wiremod</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <script>
     (function () {
@@ -24,7 +24,7 @@
       <span class="logo-brand">E2fullExtensions</span>
       <span class="logo-tag">Wiki</span>
     </div>
-    <div class="subtitle">Справочник E2-модулей сервера</div>
+    <div class="subtitle">Аддон E2FE и E2-модули сервера</div>
     <nav class="nav">
       <div class="nav-group">
         <div class="nav-label">Введение</div>
@@ -36,15 +36,16 @@
       <div class="nav-group">
         <div class="nav-label">Справочник API</div>
         <a href="#squad">Отряды</a>
+        <a href="#clans">Кланы</a>
         <a href="#eventsystem">EVENT system</a>
         <a href="#pointpay">PointShop</a>
         <a href="#moneypay">Sandbox Money</a>
         <a href="#extracore">Extra+ E2 CORE</a>
-        <a href="#E2fullExtensions">Модули</a>
       </div>
-      <div class="nav-group">
+      <div class="nav-group nav-group--examples">
         <div class="nav-label">Примеры кода</div>
         <a href="#ex-squad">Отряды</a>
+        <a href="#ex-clan">Кланы</a>
         <a href="#ex-event">Ивенты</a>
         <a href="#ex-pay">Оплата</a>
         <a href="#ex-extracore">Extra+ CORE</a>
@@ -75,7 +76,7 @@
           <span class="hero-brand">E2fullExtensions</span>
           <span class="hero-tag">Wiki</span>
         </h1>
-        <p class="intro">Официальная вики для аддона <strong>E2fullExtensions</strong> — все E2-расширения сервера в одном месте. Модули подключаются автоматически, если установлены зависимости: <strong>Extra+ E2 CORE</strong>, <strong>EVENT system</strong>, <strong>PointShop</strong>, <strong>Sandbox Money [FULL REWORKED]</strong> и др. Команда <code>e2fullextensions_modules</code> — панель статуса в игре.</p>
+        <p class="intro">Вики аддона <strong>E2fullExtensions</strong> (<abbr class="abbr-e2fe" title="E2fullExtensions">E2FE</abbr>) — все E2-расширения сервера в одном месте. Модули подключаются автоматически, если установлены зависимости: <strong>Clans</strong>, <strong>Extra+ E2 CORE</strong>, <strong>EVENT system</strong>, <strong>PointShop</strong>, <strong>Sandbox Money</strong> и др. Команда <code>e2fullextensions_modules</code> — панель статуса в игре.</p>
       </header>
 
       <nav class="toc">
@@ -89,12 +90,17 @@
               <li><a href="#squad-ext">Расширенные функции</a></li>
             </ol>
           </li>
+          <li><a href="#clans">API: кланы</a>
+            <ol>
+              <li><a href="#clans-ext">Расширенные функции</a></li>
+            </ol>
+          </li>
           <li><a href="#eventsystem">API: EVENT system</a></li>
           <li><a href="#pointpay">API: PointShop</a></li>
           <li><a href="#moneypay">API: Sandbox Money</a></li>
           <li><a href="#extracore">API: Extra+ E2 CORE</a></li>
-          <li><a href="#E2fullExtensions">E2fullExtensions: модули</a></li>
-          <li><a href="#ex-squad">Примеры кода</a></li>
+          <li><a href="#module-list">Модули внутри аддона E2FE</a></li>
+          <li><a href="#examples">Примеры кода</a></li>
         </ol>
       </nav>
 
@@ -102,35 +108,57 @@
       <section class="section" id="overview">
         <h2>Обзор аддонов</h2>
 
-        <aside class="infobox">
-          <div class="infobox-title">Нужно на сервере</div>
+        <aside class="infobox infobox-e2hub">
+          <div class="infobox-title">E2fullExtensions</div>
+          <div class="infobox-logo infobox-logo--hub">E2</div>
           <table>
-            <tr><th>Обязательно</th><td>Wiremod, E2fullExtensions</td></tr>
-            <tr><th>Extra+ CORE</th><td>Wirelink (<code>wirelinkcon</code>) в E2fullExtensions</td></tr>
-            <tr><th>Отряды</th><td>Simple Squad Menu</td></tr>
-            <tr><th>Ивенты</th><td>EVENT system for sandbox</td></tr>
-            <tr><th>Поинты</th><td>PointShop</td></tr>
-            <tr><th>Деньги</th><td>Sandbox Money [FULL REWORKED] или DarkRP</td></tr>
+            <tr><th>Тип</th><td>Аддон сервера (GMod)</td></tr>
+            <tr><th>Автор</th><td>D3buff</td></tr>
+            <tr><th>Создан</th><td>30 мая 2026</td></tr>
+            <tr><th>Назначение</th><td>E2-функции для Wiremod на сервере</td></tr>
+            <tr><th>Модули E2</th><td>5 внутри аддона</td></tr>
           </table>
         </aside>
 
-        <p>Каждый модуль E2fullExtensions включается автоматически. Строка <code>@extensions</code> не обязательна. Статус модулей в игре: <code>e2fullextensions_modules</code>.</p>
+        <p>Модули <strong>E2FE</strong> подключаются автоматически, если на сервере есть нужные аддоны. Статус: <code>e2fullextensions_modules</code>.</p>
+        <p class="overview-grid-lead">Ниже — Wiremod, <strong>аддон E2FE</strong> и связанные аддоны-зависимости. E2-модули <em>внутри</em> аддона — в <a href="#module-list">отдельном блоке</a>.</p>
 
-        <div class="overview-grid">
+        <div class="overview-grid overview-grid--key8">
+          <div class="overview-card">
+            <span class="tag tag-wire">Base</span>
+            <h4>Wiremod</h4>
+            <p>Основа: Expression 2 и <code>E2Lib</code>. Без Wiremod E2FE не запустится.</p>
+          </div>
+          <div class="overview-card overview-card--featured">
+            <span class="tag tag-hub">E2FE</span>
+            <h4>E2fullExtensions</h4>
+            <p>Аддон с E2-модулями (не модуль Wire). Статус: <code>e2fullextensions_modules</code>.</p>
+          </div>
+          <div class="overview-card">
+            <span class="tag tag-wire">CORE</span>
+            <h4>Extra+ E2 CORE</h4>
+            <p>Wirelink: use, balloon, shake, physPulse. Модуль <code>wirelinkcon</code>.</p>
+          </div>
+          <div class="overview-card">
+            <span class="tag tag-clan">Clan</span>
+            <h4>Clans</h4>
+            <p class="wiki-server-note">специально для сервера строй\убивай</p>
+            <p>Кланы, казна, ранги, чат. E2: <code>clan_e2plus</code>.</p>
+          </div>
           <div class="overview-card">
             <span class="tag tag-squad">Squad</span>
             <h4>Simple Squad Menu</h4>
-            <p>Базовые функции отрядов. Расширения (лидер, isInSquad, события) — модуль E2fullExtensions.</p>
+            <p>Отряды: ID, участники, лидер. E2: <code>squad_e2plus</code>.</p>
           </div>
           <div class="overview-card">
             <span class="tag tag-event">Event</span>
             <h4>EVENT system</h4>
-            <p>Ивенты для sandbox: набор «+», фазы, участники, ULX-команды. E2 — модуль E2fullExtensions.</p>
+            <p>Ивенты sandbox: фазы, «+», участники. E2: <code>eventsystem_e2</code>.</p>
           </div>
           <div class="overview-card">
             <span class="tag tag-pay">Pay</span>
             <h4>PointShop</h4>
-            <p>Оплата поинтами: запрос, баланс, перевод, дроп. E2-модуль <code>pointpay</code> в E2fullExtensions.</p>
+            <p>Оплата поинтами. E2: <code>pointpay</code>.</p>
           </div>
           <div class="overview-card">
             <span class="tag tag-money">Money</span>
@@ -138,20 +166,19 @@
               <span class="overview-title-line">DarkRP<span class="overview-title-slash">/</span></span>
               <span class="overview-title-line">Simple money</span>
             </h4>
-            <p>Деньги на sandbox-серверах и в DarkRP. E2-модуль <code>moneypay</code> — те же функции, что PointShop, но для $.</p>
-          </div>
-          <div class="overview-card">
-            <span class="tag tag-wire">CORE</span>
-            <h4>Extra+ E2 CORE</h4>
-            <p>Wirelink: use, balloon, shake, physPulse. Активен с Wiremod.</p>
+            <p>Деньги на сервере. E2: <code>moneypay</code>.</p>
           </div>
         </div>
 
-        <h3>Модули E2fullExtensions</h3>
+        <h3 id="module-list">E2-модули внутри аддона E2FE</h3>
         <div class="module-list">
           <a class="module-item" href="#extracore">
             <strong>Wirelink</strong>
             <span><code>wirelinkcon</code> · use, balloon, shake</span>
+          </a>
+          <a class="module-item" href="#clans">
+            <strong>Clans</strong>
+            <span><code>clan_e2plus</code> · клан, владелец, isInClan</span>
           </a>
           <a class="module-item" href="#squad">
             <strong>Squad</strong>
@@ -173,10 +200,10 @@
 
         <div class="cmd-box" id="check-modules">
           <div class="cmd-box-title">Проверка модулей на сервере</div>
-          <p class="cmd-box-lead">В игре на сервере с E2fullExtensions — откроется панель со статусом каждого модуля.</p>
+          <p class="cmd-box-lead">На сервере с E2FE — панель со статусом каждого модуля.</p>
           <div class="cmd-box-row notranslate">
             <code class="cmd-box-code">e2fullextensions_modules</code>
-            <button type="button" class="copy-btn cmd-copy" data-copy="e2fullextensions_modules">Copy</button>
+            <button type="button" class="copy-btn cmd-copy" data-copy="e2fullextensions_modules">Копировать</button>
           </div>
           <p class="cmd-box-hint">Консоль (<kbd>~</kbd>) или чат. Статусы: <strong>Активен</strong> · <strong>Зависимости есть, E2 не загружен</strong> · <strong>Не найдено</strong>.</p>
         </div>
@@ -193,10 +220,6 @@
           <li>Подключи Wire-входы и выходы к своей схеме.</li>
           <li>Если функция «не найдена» — перезагрузи Lua (<code>lua_refresh</code> в консоли) или перезапусти карту.</li>
         </ol>
-
-        <div class="note note-tip">
-          <strong>ID отряда:</strong> у каждого отряда есть числовой идентификатор. Игрок получает его через <code>entity:getSquadID()</code>; если игрок не в отряде — возвращается <code>−1</code>. Для проверок надёжнее использовать ID, чем имя: имя можно найти через <code>getSquadIDByName</code> или <code>findSquadIDByPart</code>, либо выбрать отряд по позиции в <code>getAllSquadIDs()</code>.
-        </div>
       </section>
 
       <!-- SQUAD API -->
@@ -204,6 +227,11 @@
         <span class="tag tag-squad">Simple Squad Menu</span>
         <h2>Отряды — базовые функции</h2>
         <p class="lead">Аддон Simple Squad Menu. Базовые функции для чтения данных об отрядах и игроках.</p>
+
+        <div class="note note-tip">
+          <strong>ID отряда:</strong> у каждого отряда есть числовой идентификатор. Игрок получает его через <code>entity:getSquadID()</code>; если игрок не в отряде — возвращается <code>−1</code>. Для проверок надёжнее использовать ID, чем имя: имя можно найти через <code>getSquadIDByName</code> или <code>findSquadIDByPart</code>, либо выбрать отряд по позиции в <code>getAllSquadIDs()</code>.
+        </div>
+
         <table class="wikitable">
           <thead><tr><th>Функция</th><th>Возвращает</th><th>Описание</th></tr></thead>
           <tbody>
@@ -221,7 +249,7 @@
         </table>
 
         <h3 id="squad-ext">Расширенные функции</h3>
-        <p class="lead">Модуль E2fullExtensions (<code>squad_e2plus</code>). Требует Simple Squad Menu.</p>
+        <p class="lead">Модуль E2FE (<code>squad_e2plus</code>). Требует Simple Squad Menu.</p>
         <table class="wikitable">
           <thead><tr><th>Функция</th><th>Возвращает</th><th>Описание</th></tr></thead>
           <tbody>
@@ -238,11 +266,62 @@
         </table>
       </section>
 
+      <!-- CLANS API -->
+      <section class="section" id="clans">
+        <span class="tag tag-clan">Clans</span>
+        <h2>Кланы — функции E2</h2>
+        <p class="wiki-server-note">специально для сервера строй\убивай</p>
+        <p class="lead">Аддон <strong>Clans</strong> + модуль E2FE <code>clan_e2plus</code>. ID клана — <strong>строка</strong> (например <code>id_1730…_STEAM_0:…</code>), не число как у отрядов.</p>
+
+        <div class="note note-tip">
+          <strong>ID клана:</strong> строковый идентификатор (<code>entity:getClanId()</code>). Пустая строка — игрок не в клане. Имя клана: <code>getClanIdByName</code>, <code>findClanIdsByPart</code>, список: <code>getAllClanIds()</code>.
+        </div>
+
+        <table class="wikitable">
+          <thead><tr><th>Функция</th><th>Возвращает</th><th>Описание</th></tr></thead>
+          <tbody>
+            <tr><td><code>entity:isClanMember()</code></td><td>0 / 1</td><td>Игрок в любом клане</td></tr>
+            <tr><td><code>entity:getClanId()</code></td><td>строка</td><td>ID клана; пусто если не в клане</td></tr>
+            <tr><td><code>doesClanExist(s)</code></td><td>0 / 1</td><td>Клан с таким ID существует</td></tr>
+            <tr><td><code>getClanName(s)</code></td><td>строка</td><td>Название клана по ID</td></tr>
+            <tr><td><code>getClanColor(s)</code></td><td>vector</td><td>Цвет RGB клана</td></tr>
+            <tr><td><code>getClanMemberCount(s)</code></td><td>число</td><td>Участников <strong>онлайн</strong> в клане</td></tr>
+            <tr><td><code>getClanMembers(s)</code></td><td>array</td><td>Массив игроков онлайн в клане</td></tr>
+            <tr><td><code>getAllClanIds()</code></td><td>array</td><td>Все ID кланов на сервере</td></tr>
+            <tr><td><code>getClanIdByName(s)</code></td><td>строка</td><td>ID по точному имени; пусто если нет</td></tr>
+            <tr><td><code>findClanIdsByPart(s)</code></td><td>array</td><td>Массив ID по части имени</td></tr>
+          </tbody>
+        </table>
+
+        <h3 id="clans-ext">Расширенные функции</h3>
+        <p class="lead">Лидер, казна, события входа/выхода — как у отрядов.</p>
+        <table class="wikitable">
+          <thead><tr><th>Функция</th><th>Возвращает</th><th>Описание</th></tr></thead>
+          <tbody>
+            <tr><td><code>entity:isInClan(s)</code></td><td>0 / 1</td><td>Игрок в клане с ID <code>s</code></td></tr>
+            <tr><td><code>entity:sameClan(e)</code></td><td>0 / 1</td><td>Два игрока в одном клане</td></tr>
+            <tr><td><code>entity:isClanOwner()</code></td><td>0 / 1</td><td>Игрок — владелец своего клана</td></tr>
+            <tr><td><code>getClanOwner(s)</code></td><td>entity</td><td>Владелец клана (онлайн)</td></tr>
+            <tr><td><code>getClanOwnerName(s)</code></td><td>строка</td><td>Ник владельца</td></tr>
+            <tr><td><code>entity:getOwnClanName()</code></td><td>строка</td><td>Название своего клана</td></tr>
+            <tr><td><code>entity:getOwnClanColor()</code></td><td>vector</td><td>Цвет своего клана</td></tr>
+            <tr><td><code>getClanPoints(s)</code></td><td>число</td><td>Очки в казне клана</td></tr>
+            <tr><td><code>getClanKills(s)</code></td><td>число</td><td>Суммарные убийства клана</td></tr>
+            <tr><td><code>getAllClansInfo()</code></td><td>table</td><td>Таблица всех кланов (имя, цвет, участники…)</td></tr>
+            <tr><td><code>runOnClanEvent(1)</code></td><td>—</td><td>Событие входа/выхода из клана</td></tr>
+            <tr><td><code>clanEventClk()</code></td><td>0 / 1</td><td>Сейчас срабатывает событие клана</td></tr>
+            <tr><td><code>clanEventPlayer()</code></td><td>entity</td><td>Кто вошёл или вышел</td></tr>
+            <tr><td><code>clanEventClanId()</code></td><td>строка</td><td>ID клана события</td></tr>
+            <tr><td><code>clanEventType()</code></td><td>1 / 2</td><td>1 = вход, 2 = выход</td></tr>
+          </tbody>
+        </table>
+      </section>
+
       <!-- EVENT -->
       <section class="section" id="eventsystem">
         <span class="tag tag-event">EVENT system</span>
         <h2>EVENT system for sandbox</h2>
-        <p>Аддон <strong>EVENT system</strong> + E2-модуль <code>eventsystem_e2</code> в E2fullExtensions. Фазы: <strong>0</strong> — нет ивента, <strong>1</strong> — набор («+»), <strong>2</strong> — ивент идёт.</p>
+        <p>Аддон <strong>EVENT system</strong> + E2-модуль <code>eventsystem_e2</code> в E2FE. Фазы: <strong>0</strong> — нет ивента, <strong>1</strong> — набор («+»), <strong>2</strong> — ивент идёт.</p>
         <table class="wikitable">
           <thead><tr><th>Функция</th><th>Описание</th></tr></thead>
           <tbody>
@@ -265,7 +344,7 @@
       <section class="section" id="pointpay">
         <span class="tag tag-pay">PointShop</span>
         <h2>PointShop — оплата поинтами</h2>
-        <p>Модуль E2fullExtensions <code>pointpay</code>. Требует <strong>PointShop</strong> (<code>PS_GetPoints</code>). Окно «Принять / Отказать». Дроп — <code>pointshop_money_drop</code>.</p>
+        <p>Модуль E2FE <code>pointpay</code>. Требует <strong>PointShop</strong> (<code>PS_GetPoints</code>). Окно «Принять / Отказать». Дроп — <code>pointshop_money_drop</code>.</p>
         <table class="wikitable">
           <thead><tr><th>Функция</th><th>Описание</th></tr></thead>
           <tbody>
@@ -291,7 +370,7 @@
       <section class="section" id="moneypay">
         <span class="tag tag-pay">Sandbox Money</span>
         <h2>Sandbox Money [FULL REWORKED]</h2>
-        <p>Модуль E2fullExtensions <code>moneypay</code>. Работает с <strong>Sandbox Money [FULL REWORKED]</strong> или <strong>DarkRP</strong>. API зеркалит PointShop — те же сценарии, но для денег ($).</p>
+        <p>Модуль E2FE <code>moneypay</code>. Работает с <strong>Sandbox Money [FULL REWORKED]</strong> или <strong>DarkRP</strong>. API зеркалит PointShop — те же сценарии, но для денег ($).</p>
 
         <div class="note note-tip">
           <strong>Как определяется бэкенд:</strong> <code>getMoney()</code> + <code>addMoney()</code> — Sandbox Money; gamemode DarkRP или <code>getDarkRPVar("money")</code> — DarkRP. Дроп — <code>spawned_money</code> / <code>DarkRP.createMoneyBag</code>.
@@ -319,35 +398,11 @@
         </table>
       </section>
 
-      <!-- E2fullExtensions -->
-      <section class="section" id="E2fullExtensions">
-        <span class="tag tag-wire">E2fullExtensions</span>
-        <h2>Модули и проверка зависимостей</h2>
-        <p>Все E2-расширения в одном аддоне. В консоли или чате: <code>e2fullextensions_modules</code> — откроется панель со статусом каждого модуля.</p>
-
-        <table class="wikitable">
-          <thead><tr><th>Модуль E2fullExtensions</th><th>Extension</th><th>Workshop-аддон / проверка</th></tr></thead>
-          <tbody>
-            <tr><td>Extra+ E2 CORE — Wirelink</td><td><code>wirelinkcon</code></td><td>Wiremod (E2Lib)</td></tr>
-            <tr><td>Squad / EVENT</td><td><code>squad_e2plus</code>, <code>eventsystem_e2</code></td><td>Simple Squad Menu, EVENT system</td></tr>
-            <tr><td>PointShop</td><td><code>pointpay</code></td><td>PS_GetPoints, PS_HasPoints</td></tr>
-            <tr><td>Sandbox Money</td><td><code>moneypay</code></td><td>getMoney + addMoney или DarkRP</td></tr>
-          </tbody>
-        </table>
-
-        <h3>Статусы в панели</h3>
-        <ul>
-          <li><strong>Активен</strong> — модуль загружен, функции доступны в E2</li>
-          <li><strong>Зависимости есть</strong> — аддон на месте, но E2 ещё не перезагружен</li>
-          <li><strong>Не найдено</strong> — нужный аддон/API отсутствует</li>
-        </ul>
-      </section>
-
       <!-- EXTRA+ CORE -->
       <section class="section" id="extracore">
         <span class="tag tag-wire">Extra+ E2 CORE</span>
         <h2>Extra+ E2 CORE</h2>
-        <p>Модуль E2fullExtensions <strong>Wirelink</strong>. Extension: <code>wirelinkcon</code>.</p>
+        <p>Модуль E2FE <strong>Wirelink</strong>. Extension: <code>wirelinkcon</code>.</p>
 
         <h3>Wirelink</h3>
         <table class="wikitable">
@@ -370,7 +425,18 @@
       </section>
 
       <!-- EXAMPLES -->
-      <section class="section" id="ex-squad">
+      <section class="section section-examples" id="examples">
+        <h2>Примеры кода</h2>
+        <div class="docs-boundary docs-boundary--examples" id="ex-disclaimer" aria-label="Дисклеймер к примерам кода">
+          <p class="docs-boundary__title notranslate">ДИСКЛЕЙМЕР</p>
+          <p class="docs-boundary__text">
+            Примеры кода E2 могут не работать: они созданы ИИ и пока не обработаны человеком.
+            Пока код не проверен вручную, мы не можем на все 100% гарантировать, что он заработает на сервере.
+          </p>
+        </div>
+      </section>
+
+      <section class="section section-examples" id="ex-squad">
         <h2>Примеры — отряды</h2>
 
         <div class="example-block">
@@ -439,7 +505,70 @@ if(squadEventClk()) {
         </div>
       </section>
 
-      <section class="section" id="ex-event">
+      <section class="section section-examples" id="ex-clan">
+        <h2>Примеры — кланы</h2>
+
+        <div class="example-block">
+          <h3>Проверка: игрок в нужном клане</h3>
+          <p>Клан ищется по имени (Wire-вход <code>ClanName</code>). ID клана — строка.</p>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Clan Check
+@inputs ClanName:string Check
+@outputs Allowed ClanID:string
+@persist TargetClanID:string
+@trigger Check
+
+TargetClanID = ""
+if(ClanName != "") {
+    TargetClanID = getClanIdByName(ClanName)
+    if(TargetClanID == "") {
+        local ids = findClanIdsByPart(ClanName)
+        if(ids:count() >= 1) { TargetClanID = ids[1,string] }
+    }
+}
+ClanID = TargetClanID
+if(Check) {
+    Allowed = (TargetClanID != "" & doesClanExist(TargetClanID) & owner():isInClan(TargetClanID)) ? 1 : 0
+}</pre>
+          </div>
+        </div>
+
+        <div class="example-block">
+          <h3>Список кланов на экран</h3>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Clan List
+@outputs Screen:string
+@trigger
+
+local T = ""
+foreach(_, ID:string=getAllClanIds()) {
+    T = T + getClanName(ID) + " (" + getClanMemberCount(ID):toString() + ") | "
+}
+Screen = T</pre>
+          </div>
+        </div>
+
+        <div class="example-block">
+          <h3>Реакция на вход и выход из клана</h3>
+          <div class="code-wrap">
+            <button class="copy-btn" type="button">Copy</button>
+            <pre>@name Clan Events
+@outputs EventText:string
+@trigger
+
+if(first()) { runOnClanEvent(1) }
+if(clanEventClk()) {
+    local P = clanEventPlayer()
+    local Act = clanEventType() == 1 ? "joined" : "left"
+    EventText = P:name() + " " + Act + " clan " + clanEventClanId()
+}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-examples" id="ex-event">
         <h2>Примеры — ивенты</h2>
 
         <div class="example-block">
@@ -474,7 +603,7 @@ Screen = Screen + " | State:" + getEventState():toString()</pre>
         </div>
       </section>
 
-      <section class="section" id="ex-pay">
+      <section class="section section-examples" id="ex-pay">
         <h2>Примеры — оплата</h2>
 
         <div class="example-block">
@@ -529,7 +658,7 @@ if(clk("reset")) { Sold = 0 }</pre>
         </div>
       </section>
 
-      <section class="section" id="ex-extracore">
+      <section class="section section-examples" id="ex-extracore">
         <h2>Примеры — Extra+ E2 CORE</h2>
 
         <div class="example-block">
@@ -562,7 +691,7 @@ if(Spawn) {
         </div>
       </section>
 
-      <section class="section" id="ex-combo">
+      <section class="section section-examples" id="ex-combo">
         <h2>Комбинации</h2>
 
         <div class="example-block">
@@ -601,7 +730,7 @@ if(pointPaySuccess() == 1) {
       </section>
 
       <footer>
-        E2fullExtensions Wiki · Garry's Mod · Wiremod · Обновляй страницу после правок аддонов
+        E2FE Wiki · E2fullExtensions · Garry's Mod · Wiremod · Обновляй страницу после правок аддонов
       </footer>
 
     </article>

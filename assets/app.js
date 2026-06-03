@@ -296,10 +296,11 @@
       if (!text) return;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function () {
-          btn.textContent = "Copied";
+          var label = btn.classList.contains("cmd-copy") ? "Копировать" : "Copy";
+          btn.textContent = btn.classList.contains("cmd-copy") ? "Скопировано" : "Copied";
           btn.classList.add("ok");
           setTimeout(function () {
-            btn.textContent = "Copy";
+            btn.textContent = label;
             btn.classList.remove("ok");
           }, 1500);
         });
@@ -317,13 +318,76 @@
     }
   });
 
+  var examplesNavGroup = document.querySelector(".nav-group--examples");
+  var disclaimerEl = document.getElementById("ex-disclaimer");
+
+  function setActiveNav(link) {
+    links.forEach(function (l) { l.classList.remove("active"); });
+    if (link) link.classList.add("active");
+  }
+
+  function setExamplesGroupActive(on) {
+    if (examplesNavGroup) {
+      examplesNavGroup.classList.toggle("is-in-examples", on);
+    }
+  }
+
+  function isDisclaimerInView() {
+    if (!disclaimerEl) return false;
+    var box = disclaimerEl.getBoundingClientRect();
+    return box.top < window.innerHeight * 0.55 && box.bottom > 72;
+  }
+
   window.addEventListener("scroll", function () {
+    if (isDisclaimerInView()) {
+      setActiveNav(null);
+      setExamplesGroupActive(true);
+      return;
+    }
+
+    setExamplesGroupActive(false);
+
     var y = window.scrollY + 100;
     var current = sections[0];
     sections.forEach(function (s) {
       if (s.el.offsetTop <= y) current = s;
     });
-    links.forEach(function (l) { l.classList.remove("active"); });
-    if (current) current.link.classList.add("active");
+    setActiveNav(current && current.link);
   });
+
+  var SCROLL_OFFSET = 20;
+
+  function smoothScrollToEl(el) {
+    if (!el) return;
+    var top = el.getBoundingClientRect().top + window.pageYOffset - SCROLL_OFFSET;
+    window.scrollTo({ top: top, behavior: "smooth" });
+  }
+
+  function smoothScrollToHash(hash) {
+    if (!hash || hash.charAt(0) !== "#" || hash.length < 2) return;
+    var el = document.querySelector(hash);
+    if (el) smoothScrollToEl(el);
+  }
+
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[href^='#']");
+    if (!a) return;
+    var hash = a.getAttribute("href");
+    if (!hash || hash.length < 2) return;
+    var target = document.querySelector(hash);
+    if (!target) return;
+    e.preventDefault();
+    if (history.pushState) {
+      history.pushState(null, "", hash);
+    } else {
+      location.hash = hash;
+    }
+    smoothScrollToEl(target);
+  });
+
+  if (location.hash) {
+    requestAnimationFrame(function () {
+      smoothScrollToHash(location.hash);
+    });
+  }
 })();
